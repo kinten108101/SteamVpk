@@ -1,0 +1,41 @@
+{
+  "_comment": "",
+  "addons": [
+    {
+      "id": "nick-TLOU2-potato", // first five attributes are meta!
+      "priority": 3,
+      "src": "STEAMWORKSHOP",
+      "srcid": 2779276994,
+      "en":true,
+      "name": "Nick - TLOU2",
+      "creators": [
+        "potato"
+      ],
+      "categories": [
+        "Nick",
+        "Survivors"
+      ],
+      "description": "What could be better"
+    },
+    {
+      "name": "广州增城 （Zengcheng）Lv7.3",
+      "id": "map-zc_EN_dir",
+      "author": [ "爱都有罪love" ],
+      "priority": 1,
+      "category": [
+        "Campaigns",
+        "Co-op",
+        "Single Player"
+      ],
+      "src": "LOCAL",
+      "description": ""
+    },
+    {
+      "id": "SEPARATOR",
+      "name": "Custom name here!",
+      "priority": 2,
+      "collapsed": false,
+      "description": ""
+    }
+  ]
+}

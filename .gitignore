@@ -1,0 +1,10 @@
+addons/
+addons_dump/
+backup*/
+TOOL_*/
+garage/
+tmp/
+
+*.vpk
+*.jpg
+*.png

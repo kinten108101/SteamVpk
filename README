@@ -1,0 +1,9 @@
+NOTICE: Avoid whitespaces when naming the root directory. Working on a proper fix.
+NOTICE: Scripts use getopt which is not POSIX-compliant.
+TODO: Read ITCS till malloc
+TODO: Extract file from archive
+TODO: The Standard Library Maki libmaki.so
+TODO: The Extended Library Koji libkoji.so
+TODO: Central CLI
+TODO: VDF Parser
+TODO: Install P90, P90s, Vector SD, Bizon SD, HK443 SD, Raal MG, Lux's Survivor Legs
