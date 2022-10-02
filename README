@@ -6,4 +6,5 @@ TODO: The Standard Library Maki libmaki.so
 TODO: The Extended Library Koji libkoji.so
 TODO: Central CLI
 TODO: VDF Parser
-TODO: Install P90, P90s, Vector SD, Bizon SD, HK443 SD, Raal MG, Lux's Survivor Legs
+TODO/DONE: Install P90, P90s, Vector SD, Bizon SD, HK443 SD, Raal MG, Lux's Survivor Legs
+TODO: Change force dir to default dir

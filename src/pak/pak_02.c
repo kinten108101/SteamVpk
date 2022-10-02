@@ -1,3 +1,5 @@
+// Any read/write vpk archives
+
 #include <stdio.h>
 #include "pak.h" // for pakheader struct
 #define SIZE_HEADER 12
@@ -12,13 +14,9 @@ get_tree_size (FILE* f)
 	return tree_size;
 }
 
-static inline void
-write_file_iter (FILE* f,
-				unsigned int offset,
-				unsigned int size,)
-
 void
-extract_file_from_archive (const char* target_file, const char* pak_dir_path)
+unpack_single (const char* target_file,
+               const char* pak_dir_path)
 {
 	FILE* f = fopen(pak_dir_path,"rb");
 	unsigned int tree_size = _get_tree_size(f);
@@ -38,13 +36,13 @@ extract_file_from_archive (const char* target_file, const char* pak_dir_path)
 				char name [SIZE_FNAME];
 				uint8 len_name = _read_string(f,name);
 				if (strcmp(name,"")==0) break;
-				uint8 len_path = len_ext+len_dir+len_name;
-				char path[len_path+1];
-				path[0] = '\0';
-				path = maki_strcat(path,dir);
-				path = maki_strcat(path,name);
-				path = maki_strcat(path,ext);
-				if (strcmp(target_file,path)==0)
+				char path_buff[len_ext+len_dir+len_name+1];
+				path_buff[0] = '\0';
+				char* path_ptr = path_buff;
+				path_ptr = maki_strcat(path_ptr,dir);
+				path_ptr = maki_strcat(path_ptr,name);
+				path_ptr = maki_strcat(path_ptr,ext);
+				if (strcmp(target_file,path_buff)==0)
 				{
 					// TODO: You dont have to rewrite this 3layered loop
 					// all the time. Implement delegate or sth.

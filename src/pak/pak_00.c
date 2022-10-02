@@ -37,10 +37,10 @@ _mkdir (const char* path)
 static inline void
 _read_string (FILE* f, char* str ) 
 {
-	char* cur = (char*)malloc(1);
+	char* cur = (char*) malloc (1);
 	do
 	{
-		fread(cur,1,1,f);
+		fread (cur,1,1,f);
 		*(str++)=*cur;
 	}
 	while(*cur);
@@ -55,16 +55,20 @@ write_tree_iter	(const char* path,
                  unsigned int offset, 
                  unsigned int length)
 {
-	char* content = (char*)malloc(length);
-	long prev_offset = ftell(f);
+	char* content = (char*) malloc (length);
+	long prev_offset = ftell (f);
 
-	fseek(f, SIZE_VPKHEADER + tree_size + offset, SEEK_SET);
-	fread(content,1,length,f);
-	fseek(f, prev_offset, SEEK_SET);
-
+	fseek (f, SIZE_VPKHEADER + tree_size + offset, SEEK_SET);
+	fread (content,1,length,f);
+	fseek (f, prev_offset, SEEK_SET);
+    
 	_mkdir(path);
 	FILE* f_out = fopen (path,"w");
-	if (f_out==NULL) { fputs("Something is wrong!\n", stderr); exit(1); }
+	if (f_out==NULL)
+	{
+		fputs ("Something is wrong!\n", stderr);
+		exit(1);
+	}
 	fwrite(content, 1, length, f_out);
 
 	fclose(f_out);
@@ -73,11 +77,11 @@ write_tree_iter	(const char* path,
 }
 
 void
-_pathcat(char path[],
-		const char* base,
-		const char* dir,
-		const char* name,
-		const char* ext)
+_pathcat (char path[],
+		  const char* base,
+		  const char* dir,
+		  const char* name,
+		  const char* ext)
 {
 	path[0] = '\0';
 	path = maki_strcat(path,base);
@@ -93,11 +97,10 @@ _pathcat(char path[],
 }
 
 char*
-_pathcat_v2
-(const char* base,
-const char* dir,
-const char* name,
-const char* ext)
+_pathcat_v2 (const char* base,
+             const char* dir,
+             const char* name,
+             const char* ext)
 {
 	char* p = (char*)malloc(maki_strlen(base)+1
 		+maki_strlen(dir)+1

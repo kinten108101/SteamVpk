@@ -1,3 +1,5 @@
+// Exposed calls for GUI
+
 #include "manager/addons_dict.h"
 
 void
@@ -72,4 +74,31 @@ void merge_comfortable ()
 void merge_compact ()
 {
 	// merge vpks into one. Only if their sizes allow it.
+}
+
+void check_nonutf8 ()
+{
+	
+}
+
+void sync_headerfiles (const char* const pak_dir_path)
+{
+	char names[2][] = { "addoninfo", "addonimage" };
+	char exts[2][3][] = { {"txt", '\0', '\0'}, {"jpg", "png", "vtf"} };
+	for ( int i = 0; i < 2; i++ )
+	{
+		for ( int j = 0; j < 3; j++ )
+		{
+			if ( exts[i][j][0] == '\0' ) continue;
+			char (*target_name)[20];
+			*target_name = '\0';
+			char *p = target_name;
+			p = mk_strcat (p, names[i]);
+			p = mk_strcat (p, ".");
+			p = mk_strcat (p, exts[i][j]);
+			unpack_single (target_name, pak_dir_path);
+		}
+	}
+	// sync external addoninfo, addonimage and addon_dir with
+	// their internal counterparts
 }
