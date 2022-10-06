@@ -28,7 +28,31 @@ format_string ()
 }
 
 void
-mk_err (const char* message)
+mkerr (const char* message)
 {
-	printf("");
+}
+
+void
+mk_mkdir (const char* path)
+{
+	char* dirs = (char*)malloc(strlen(path)+1);
+	char* dirs_start = dirs;
+
+	while (*dirs = *path)
+	{
+		if ( *dirs == '/' )
+		{
+			*(++dirs)='\0'; dirs--;
+			mkdir(dirs_start,0755);
+		}
+		dirs++;
+		path++;
+	}
+	free(dirs);
+}
+
+void
+mkcp (const char* f_from,
+	    const char* f_to)
+{
 }

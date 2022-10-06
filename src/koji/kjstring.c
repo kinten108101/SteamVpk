@@ -1,4 +1,4 @@
-#include "maki/mkmath.h" // for maki_pow
+#include "maki/mkmath.h" // for mk_pow
 #include "maki/mktype.h" // for unsigned short
 #include <stdlib.h> // temporary i swear
 #include <stdio.h> // temporary i swear
@@ -25,7 +25,7 @@ kj_cstr2iarr (int* buffer,
             w++;
             while (*wlen_ptr != 0)
             {
-                *buffer += (*w - '0') * maki_pow(10,(*wlen_ptr)-1);
+                *buffer += (*w - '0') * mk_pow(10,(*wlen_ptr)-1);
                 w++;
                 (*wlen_ptr)--;
             }
@@ -48,6 +48,7 @@ kj_cstr2iarr (int* buffer,
 // Problem with pascal string: buffer cant simply be created
 // with malloc. 
 
+/*
 void
 kj_cstr2piarr (int* buff_ptr,
                char delim,
@@ -92,5 +93,4 @@ kj_cstr2piarr (int* buff_ptr,
     }
 }
 
-void
-close_piarr
+*/

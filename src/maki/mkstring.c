@@ -1,3 +1,5 @@
+#include "maki/mktype.h"
+
 char*
 mk_strcat (char* dest,
           const char* src)

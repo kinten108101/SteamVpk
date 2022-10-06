@@ -16,24 +16,6 @@ void ExternalMethod (PakDock* self)
 	printf("%d\n",self->i);
 }
 
-void
-_mkdir (const char* path)
-{
-	char* dirs = (char*)malloc(strlen(path)+1);
-	char* dirs_start = dirs;
-
-	while (*dirs = *path)
-	{
-		if ( *dirs == '/' )
-		{
-			*(++dirs)='\0'; dirs--;
-			mkdir(dirs_start,0755);
-		}
-		dirs++;
-		path++;
-	}
-}
-
 static inline void
 _read_string (FILE* f, char* str ) 
 {
@@ -62,7 +44,7 @@ write_tree_iter	(const char* path,
 	fread (content,1,length,f);
 	fseek (f, prev_offset, SEEK_SET);
     
-	_mkdir(path);
+	mk_mkdir(path);
 	FILE* f_out = fopen (path,"w");
 	if (f_out==NULL)
 	{

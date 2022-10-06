@@ -61,7 +61,7 @@ int main(int argc, char* argv[]) {
 
 	if ( narrC < 2 )
 	{
-		maki_ulog("Must be more than two elements!!",'E');
+		mk_ulog("Must be more than two elements!!",'E');
 		return 1;
 	}
 
@@ -72,7 +72,7 @@ int main(int argc, char* argv[]) {
 		case 2:
 			sort_bubble(narr); break;
 		default:
-			maki_ulog("Unimplemented sorting algorithm!",'E'); break;
+			mk_ulog("Unimplemented sorting algorithm!",'E'); break;
 	}
 	
 	free(narr);
