@@ -55,3 +55,4 @@ bin/% : %.c ${DLIBS_HEAD}
 clean:
 	rm -rf tmp/*
 	rm -rf lib/*
+	rm -rf bin/*
