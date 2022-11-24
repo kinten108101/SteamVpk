@@ -1,9 +1,10 @@
 add-ons/*
 addons_dump/
 backup*/
-TOOL_*/
+3rd_party/*
 garage/
 tmp/
+
 
 *.vpk
 *.jpg
