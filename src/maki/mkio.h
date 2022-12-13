@@ -1,5 +1,9 @@
-#ifndef _H_MAPP_CORE
-#define _H_MAPP_CORE
-extern void	mk_ulog (const char* message, const char flag);
-extern void	mk_mkdir (const char* path);
+#ifndef MAKI_IOSTREAM_H
+#define MAKI_IOSTREAM_H
+
+extern void	mk_ulog (const char *, const char);
+extern void	mk_mkdir (const char *);
+extern int mkerr (const char * const);
+extern void mkdie (const char *);
+
 #endif
