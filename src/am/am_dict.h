@@ -19,15 +19,17 @@ typedef struct addonv_entry
 typedef struct addonv
 {
 	addonv_entry** entries;
-	unsigned short int len;
-	void (*push)(addonv* self);
-	void (*pop)(addonv* self);
+	uint16_t len;
+	void (*push)(addonv*);
+	void (*pop)(addonv*);
 	void (*test)();
 } addonv;
-extern void init_addonv (addonv* addons_vector);
+
+extern void init_addonv (addonv* vector);
+extern void close_addonv (addonv* vector);
 extern void addonv__push (addonv* self);
 extern void addonv__pop (addonv* self);
 extern void addonv__test ();
-
 extern void startup();
+
 #endif

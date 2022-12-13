@@ -1,8 +1,19 @@
-// Exposed calls for GUI
+/**
+ * 
+ * # Exposed calls for GUI
+ * Read all addondir entries;
+ * Load entries into memory;
+ * Pretty-print all entries;
+ * Ask for next operation: LINK UNLINK FIND
+ * 
+ * 
+ * 
+ */
 
 #include "manager/addons_dict.h"
+#include "maki/mkio.h" // for mkdie
 #include "maki/mktype.h" // for uintX
-#include "pak/workshop_manager.h" // for download definitions
+#include "wm/dlqueue.h" // for download ops
 
 #define MAX_LEN_ADDONDIR_NAME 32
 #define MAX_LEN_ADDONDIR_NAME 32
@@ -95,26 +106,22 @@ _get_basedir (char* buffer)
 void
 addon_prepare (const char* const addondir_name)
 {
-	uint8_t status = 0;
-	char msg[64];
-	msg[0] = '\0';
 	/*
-	i dont know how to avoid malloc. Like, memory on the stack cant
+	i dont know how to avoid malloc. Like, memory on the stack
 	cant be returned by function.
-	Heck, the practice is to create a buffer before calling a function.
+	
+	Heck, the practice is to create a buffer before calling a
+	function.
 	*/
 	char addoninfo_path[255+15+1];
 	addoninfo_path[0]='\0';
 	mk_strcpy (addoninfo_path, addondir_path);
 	mk_strcat (addoninfo_path, "/addoninfo.json");
-	cJSON* addoninfo_json = cJSON_Parse (addoninfo);
+	const cJSON *addoninfo_json = cJSON_Parse (addoninfo);
 	if (addoninfo_json == NULL)
-	{
-		mk_strcpy (msg, "Error: couldn't find addoninfo.json\n");
-		status = 1;
-		goto end;
-	}
-	cJSON pkgs = cJSON_GetObjectItemCaseSensitive (addoninfo_json, "packages");
+		mkdie ("Couldn't find addoninfo.json");
+	const cJSON *pkgs = cJSON_GetObjectItemCaseSensitive (addoninfo_json, "packages");
+	const cJSON *pkg;
 	cJSON_ArrayForEach (pkg, pkgs)
 	{
 		cJSON* fname = cJSON_GetObjectItemCaseSensitive (pkg,"file");
@@ -123,14 +130,25 @@ addon_prepare (const char* const addondir_name)
 		mk_strcat (vpk_path,fname->valuestring);
 		cJSON* src = cJSON_GetObjectItemCaseSensitive (pkg,"source");
 		cJSON* id = cJSON_GetObjectItemCaseSensitive (pkg,"id");
-		dl_tket ticket = {src, id, fname->valuestring};
-		dlqueue->push(dlqueue, &dl_tket);
-	}
+		DLTKT ticket = {src, id, NULL,}
+	}	
+	cJSON_Delete (addoninfo);
+	printf ("%s\n",msg);
+	return status;
+}
 
-	end:
-		cJSON_Delete (addoninfo);
-		printf ("%s\n",msg);
-		return status;
+void read_addoninfo (const char *addondir)
+{
+	cJSON_Parse();
+	name = cJSON_GetObjectItemCaseSensitive ();
+	id = cJSON_GetObjectItemCaseSensitive ();
+	desc = cJSON_GetObjectItemCaseSensitive ();
+	addondict_add_entry (name, id, desc);
+}
+
+void update_links ()
+{
+
 }
 
 /*

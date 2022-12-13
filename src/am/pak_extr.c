@@ -11,11 +11,6 @@
 #define SIZE_VPKHEADER 12
 #define SIZE_VPKENTRY 18
 
-void ExternalMethod (PakDock* self)
-{
-	printf("%d\n",self->i);
-}
-
 static inline void
 _read_string (FILE* f, char* str ) 
 {
@@ -128,11 +123,10 @@ write_tree (int size_tree, FILE* f)
 				PakEntry entry;
 				fread(&entry,1,SIZE_VPKENTRY,f);
 				write_tree_iter	(path,	
-							f,
-							size_tree,
-							entry.entry_offset,
-							entry.entry_size);
-							
+								f,
+								size_tree,
+								entry.entry_offset,
+								entry.entry_size);
 			}
 		}
 	}

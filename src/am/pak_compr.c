@@ -79,7 +79,7 @@ init_hashlist_buffer (hashlist* buffer, FILE* f)
 }
 
 static inline void
-combine_hashlist_buffer (hashlist* dest, hashlist* a, hashlist* b)
+cat_hashlist_buffer (hashlist* dest, hashlist* a, hashlist* b)
 {
     int* iarr = (int*) malloc (a->len + b->len);
     int* iarr_start = iarr;
@@ -120,7 +120,7 @@ char compare_paks (const char* a, const char* b)
     fclose(fb);
     // version 1
     hashlist* buff_c = (hashlist*)malloc(4+4);
-    combine_hashlist_buffer(buff_c, buff_a, buff_b);
+    cat_hashlist_buffer(buff_c, buff_a, buff_b);
 
     maki_sort(buff_c->len, buff_c->iarr);
     ret = _spot_dup(buff_c->len, buff_c->iarr);
