@@ -23,4 +23,24 @@ NOTICE:
 NOTICE:
 	When to merge vpks into one:
 	- When you absolutely cant bear the ingame addon browser displaying multiple small addons. Although it is possible to merge, it is not recommended. This tool already serves to replace the addon browser, so you should keep the addon browser intact. Besides, modular vpk files are easier to manage.
-TODO: Sketches on Figma!
+ADDENDUM:
+	This will cause an error:
+	// fileA.c
+	void foo () { puts ("Hi"); }
+	void fee () { void (*p) () = foo; }
+	// fileA.h
+	extern void foo ();
+	extern void fee ();
+	Fix is to turn foo () to static void. Or use PIC.
+	// fileA.c
+	static void foo () { puts ("Hi"); }
+	void fee () { void (*p) () = foo; }
+	// fileA.h
+	extern void fee ();
+	The error message went something like "relocation against `restxt_handler' in readonly section `.text'"
+ADDENDUM: Forgot to initialize the cURL handler of dlqueue.
+ADDENDUM: Relocation error strikes again! This time it seems to have to do something with stderr. Again, can't avoid these until I've learned how things work. For now, use PIC.
+TODO/DONE: mkstrcat is broken
+ADDENDUM: I edited strcat when I was sending a sample of it to Bocchi.
+ADDENDUM: Statements start getting executed in main(). Outside of main() there can only be declarations or definitions, not executions.
+TODO: Testing raw HTTP client and server model!
