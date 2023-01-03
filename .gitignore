@@ -1,11 +1,11 @@
-add-ons/*
-addons_dump/
-backup*/
-3rd_party/*
-garage/
-tmp/
-
+/addons/
+/garage/
+/dump
+/lib/
+/vendors/
+/bin/
+/dls/
+/profiles/
+legacy
 
 *.vpk
-*.jpg
-*.png

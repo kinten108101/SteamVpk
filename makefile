@@ -1,58 +1,79 @@
-CC:=gcc
-CFLAGS_DEBUG:=-g -Wall -Wextra -std=c99
+.PHONY:=libs curl smkl mates cjson execs adwaita
 
-# RULE: List in alphabetical order
-BIN_DEMO:=demo_workshop
-DLIBS:=libmaki libkoji libmates
-DLIBMAKI_SRC:=mkmath.c mkio.c mkstring.c
-DLIBMAKI_HEAD:=mkmath.h mkio.h mkstring.h mktype.h
-DLIBKOJI_SRC:=kjsort.c kjstring.c
-DLIBKOJI_HEAD:=kjsort.h kjstring.h
-DLIBMATES_SRC:=workshop_manager.c
-DLIBMATES_HEAD:=workshop_manager.h
-DLIBS_HEAD:=${DLIBMAKI_HEAD} ${DLIBKOJI_HEAD} ${DLIBMATES_HEAD}
+COMPILER ?= gcc
 
-VPATH:=src src/maki src/koji src/pak
+LIBS_TBA:=curl smkl mates cjson adwaita
+LIBSMKL_DIR:=src/smkl
+LIBSMKL_SRC:=$(notdir $(wildcard ${LIBSMKL_DIR}/*.c))
+LIBMAIN_DIR:=src/download src/archival src/utils
+LIBMAIN_SRC:=$(foreach DIR,${LIBMAIN_DIR},$(notdir $(wildcard ${DIR}/*.c)))
 
-# vpath %.c src:src/pak:src/cli
+DEBUG_CFLAGS:=-g -Wall -Wextra -std=c99
+LIBMATES_CFLAGS:=
 
-# VPATH works better with files that have existed aka src/*/%.c
-# This makes sense, since src files are user-organized while most
-# intermediate binaries are one-level-tree flat.
+VPATH:=${LIBSMKL_DIR} ${LIBMAIN_DIR} src/bootstrap
 
-# -- default setup
+libs : dircheck make_vars
 
-all : | shared_libs demo
+dircheck :
+	mkdir -p dump/libmates
+	mkdir -p dump/libsmkl
 
-# -- build recipes
+make_vars : ${LIBS_TBA} misc_config
+	echo -e "#DONOTEDIT\nCC=${COMPILER}\nEXEC_CFLAGS=${EXEC_CFLAGS}\nEXEC_LIBS=${EXEC_LIBS}" > $@
 
-static_libs : lib/libmaki.a
-shared_libs : $(patsubst %,lib/%.so,${DLIBS})
-demo : $(patsubst %,bin/%,${BIN_DEMO})
+misc_config :
+	$(eval EXEC_CFLAGS+=${DEBUG_CFLAGS})
 
-## The Mates shared libary, basically the rest of the app's CLI functionality
-lib/libmates.so : $(patsubst %.c,tmp/%.o,${DLIBMATES_SRC})
-	${CC} -shared -o $@ $^
+mates : lib/libmates.so
+	$(eval EXEC_LIBS+=-lmates)
 
-## The Maki shared library
-lib/libmaki.so : $(patsubst %.c,tmp/%.o,${DLIBMAKI_SRC})
-	${CC} -shared -o $@ $^
+lib/libmates.so : $(patsubst %.c,dump/libmates/%.o,${LIBMAIN_SRC})
+	${COMPILER} -shared -o $@ $^
 
-## The Koji shared library
-lib/libkoji.so : $(patsubst %.c,tmp/%.o,${DLIBKOJI_SRC})
-	${CC} -shared -o $@ $^
+dump/libmates/%.o : %.c
+	$(eval LIBMATES_CFLAGS+=-I'vendors/cjson') \
+		$(eval LIBMATES_CFLAGS+=$(shell pkg-config --libs libadwaita-1)) \
+		${COMPILER} ${DEBUG_CFLAGS} ${LIBMATES_CFLAGS} -fPIC -c -o $@ $^
 
-## Common
-tmp/%.o : %.c
-	${CC} ${CFLAGS_DEBUG} -I'src/' -c -o $@ $^
+smkl : lib/libsmkl.so
+	$(eval EXEC_LIBS+=-lsmkl)
 
-bin/% : %.c ${DLIBS_HEAD}
-	${CC} ${CFLAGS_DEBUG} -I'src/' -L'lib/' -Wl,-rpath='lib/' \
-	 -o $@ $< $(patsubst lib%,-l%,${DLIBS})
+lib/libsmkl.so : $(patsubst %.c,dump/libsmkl/%.o,${LIBSMKL_SRC})
+	${COMPILER} -shared -o $@ $^
 
-# --- misc recipes
+dump/libsmkl/%.o : %.c
+	${COMPILER} ${DEBUG_CFLAGS} -fPIC -c -o $@ $^
+
+cjson : lib/libcjson.so
+	$(eval EXEC_LIBS+=-lcjson)
+
+lib/libcjson.so : vendors/cjson/cJSON.c
+	${COMPILER} ${DEBUG_CFLAGS} -fPIC -I'vendors/cjson/' -c -o dump/cJSON.o $^ && \
+		${COMPILER} -shared -o $@ dump/cJSON.o
+
+curl :
+	$(eval EXEC_LIBS+=$(shell curl-config --libs))
+
+adwaita :
+	$(eval EXEC_LIBS+=$(shell pkg-config --libs libadwaita-1))
+
+execs : execs_load_config $(patsubst %.c,bin/%,${EXEC_FILES})
+
+execs_load_config :
+	$(eval EXEC_CFLAGS+=$(shell cat script/config.dat | sed -n '3p' | sed 's/EXEC_CFLAGS=//'))
+	$(eval EXEC_LIBS+=$(shell cat script/config.dat | sed -n '4p' | sed 's/EXEC_LIBS=//'))
+ifeq ($(EXCEPTION_GUI_DEV),y)
+	$(eval EXEC_CFLAGS+=$(shell pkg-config --cflags libadwaita-1))
+endif
+
+bin/% : %.c
+	${COMPILER} ${EXEC_CFLAGS} -L'lib' -Wl,-rpath='lib' \
+		-o $@ $< ${EXEC_LIBS}
 
 clean:
-	rm -rf tmp/*
+	rm -rf dump/*
 	rm -rf lib/*
 	rm -rf bin/*
+
+# -rpath='lib' to add dir to search path OPTIONS, -L to add dir to search path ._. ??

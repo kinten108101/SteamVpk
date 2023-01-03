@@ -1,0 +1,41 @@
+{
+	"folders":
+	[
+		{
+			"path": ".",
+		}
+	],
+	"build_systems":
+	[
+		{
+			"name": "Mates VPK Shared Libraries",
+			"shell_cmd": "make libs",
+			"working_dir": "$project_path",
+		},
+		{
+			"name": "Mates VPK Production Bootstraps",
+			"shell_cmd": "make execs COMPILER=gcc EXEC_FILES=\"$file_name\" && ./bin/$file_base_name",
+			"working_dir": "$project_path",
+			"selector": "source.c",
+			"quiet": true,
+		},
+		{
+			"name": "Mates VPK Development Bootstraps (GUI)",
+			"shell_cmd": "make execs COMPILER=gcc EXEC_FILES=\"$file_name\" EXCEPTION_GUI_DEV=y && ./bin/$file_base_name",
+			"working_dir": "$project_path",
+			"selector": "source.c",
+			"quiet": true,
+		}
+	],
+	"settings":
+	{
+		"translate_tabs_to_spaces": true,
+		"LSP":
+		{
+			"clangd":
+			{
+				"enabled": true,
+			},
+		},
+	},
+}

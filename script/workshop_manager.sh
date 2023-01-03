@@ -1,5 +1,5 @@
 #!/bin/sh
-. "$(cd "${0%/*}/.." && echo ${PWD})/bin/init.sh" _INTERNAL
+. "$(cd "${0%/*}/.." && echo ${PWD})/script/init.sh" _INTERNAL
 
 MYLOGIN="/home/kinten/personal/steamcmd_keys.json"
 

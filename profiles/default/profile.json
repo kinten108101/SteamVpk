@@ -1,4 +1,0 @@
-{
-	"name":"default",
-	"same_priority_method":"random", // random | lexicographic
-}

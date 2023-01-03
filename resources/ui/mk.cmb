@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<!DOCTYPE cambalache-project SYSTEM "cambalache-project.dtd">
+<cambalache-project version="0.10.3" target_tk="gtk-4.0">
+  <ui>
+	(2,None,"klk.ui","bay.ui",None,None,None,None,None,None),
+	(3,None,"trial.ui","trial.ui",None,None,None,None,None,None)
+  </ui>
+  <ui_library>
+	(2,"gtk","4.6",None),
+	(3,"gtk","4.6",None)
+  </ui_library>
+  <object>
+	(2,1,"GtkWindow","main_window",None,None,None,None,None),
+	(2,2,"GtkBox","main_frame",1,None,None,None,None),
+	(2,8,"GtkTreeView","addonlist_view",2,None,None,None,1),
+	(2,12,"GtkHeaderBar","header",None,None,None,None,None),
+	(2,13,"GtkBox",None,12,None,"title",None,None),
+	(2,14,"GtkLabel",None,13,None,None,None,1),
+	(2,15,"GtkLabel",None,13,None,None,None,None),
+	(2,16,"GtkMenuButton",None,12,None,"end",None,None),
+	(2,17,"GtkPopoverMenu","index_popovermenu",None,None,None,None,None),
+	(3,1,"GtkWindow",None,None,None,None,None,None),
+	(3,2,"GtkHeaderBar","head",None,None,None,None,None),
+	(3,3,"GtkBox",None,2,None,None,None,None),
+	(3,4,"GtkButton",None,2,None,"end",None,1),
+	(3,5,"GtkLabel","xlabel",2,None,None,None,2)
+  </object>
+  <object_property>
+	(2,1,"GtkAccessible","accessible-role","note",None,None,None,None,None),
+	(2,1,"GtkWindow","default-height","309",None,None,None,None,None),
+	(2,1,"GtkWindow","default-width","200",None,None,None,None,None),
+	(2,1,"GtkWindow","title","Mates VPK",None,None,None,None,None),
+	(2,1,"GtkWindow","titlebar","12",None,None,None,None,None),
+	(2,2,"GtkBox","spacing","10",None,None,None,None,None),
+	(2,2,"GtkOrientable","orientation","vertical",None,None,None,None,None),
+	(2,2,"GtkWidget","vexpand","True",None,None,None,None,None),
+	(2,8,"GtkAccessible","accessible-role","menu",None,None,None,None,None),
+	(2,8,"GtkWidget","halign","baseline",None,None,None,None,None),
+	(2,8,"GtkWidget","height-request","110",None,None,None,None,None),
+	(2,8,"GtkWidget","vexpand","True",None,None,None,None,None),
+	(2,13,"GtkBox","homogeneous","True",None,None,None,None,None),
+	(2,13,"GtkOrientable","orientation","vertical",None,None,None,None,None),
+	(2,14,"GtkLabel","label","~/.config",None,None,None,None,None),
+	(2,15,"GtkLabel","label","Mates VPK",None,None,None,None,None),
+	(2,16,"GtkMenuButton","direction","none",None,None,None,None,None),
+	(2,16,"GtkMenuButton","popover","17",None,None,None,None,None),
+	(3,1,"GtkWindow","title","Hi!",None,None,None,None,None),
+	(3,1,"GtkWindow","titlebar","2",None,None,None,None,None),
+	(3,2,"GtkHeaderBar","title-widget","5",None,None,None,None,None),
+	(3,5,"GtkLabel","label","Hi!",None,None,None,None,None)
+  </object_property>
+</cambalache-project>

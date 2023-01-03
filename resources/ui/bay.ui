@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Created with Cambalache 0.10.3 -->
+<interface>
+  <!-- interface-name klk.ui -->
+  <requires lib="gtk" version="4.6"/>
+  <object class="GtkWindow" id="main_window">
+    <property name="accessible-role">note</property>
+    <property name="default-height">309</property>
+    <property name="default-width">200</property>
+    <property name="title">Mates VPK</property>
+    <property name="titlebar">header</property>
+    <child>
+      <object class="GtkBox" id="main_frame">
+        <property name="orientation">vertical</property>
+        <property name="spacing">10</property>
+        <property name="vexpand">True</property>
+        <child>
+          <object class="GtkTreeView" id="addonlist_view">
+            <property name="accessible-role">menu</property>
+            <property name="halign">baseline</property>
+            <property name="height-request">110</property>
+            <property name="vexpand">True</property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkHeaderBar" id="header">
+    <child type="title">
+      <object class="GtkBox">
+        <property name="homogeneous">True</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkLabel">
+            <property name="label">Mates VPK</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel">
+            <property name="label">~/.config</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child type="end">
+      <object class="GtkMenuButton">
+        <property name="direction">none</property>
+        <property name="popover">index_popovermenu</property>
+      </object>
+    </child>
+  </object>
+  <object class="GtkPopoverMenu" id="index_popovermenu"/>
+</interface>

@@ -1,0 +1,4 @@
+#DONOTEDIT
+CC=gcc
+EXEC_CFLAGS=-g -Wall -Wextra -std=c99
+EXEC_LIBS=-lcurl -lsmkl -lmates -lcjson -ladwaita-1 -lgtk-4 -lpangocairo-1.0 -lpango-1.0 -lharfbuzz -lgdk_pixbuf-2.0 -lcairo-gobject -lcairo -lgraphene-1.0 -lgio-2.0 -lgobject-2.0 -lglib-2.0 
