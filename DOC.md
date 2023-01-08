@@ -7,3 +7,10 @@ Production:
 
 Development:
 - inkscape: Rendering vector arts to PNGs;
+
+## Maintenance
+
+Make rules:
+- libs
+- execs
+- mockups
