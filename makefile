@@ -1,4 +1,4 @@
-.PHONY:=libs curl smkl mates cjson execs adwaita
+.PHONY:=libs curl smkl mates cjson execs adwaita mockups
 
 COMPILER ?= gcc
 
@@ -11,7 +11,7 @@ LIBMAIN_SRC:=$(foreach DIR,${LIBMAIN_DIR},$(notdir $(wildcard ${DIR}/*.c)))
 DEBUG_CFLAGS:=-g -Wall -Wextra -std=c99
 LIBMATES_CFLAGS:=
 
-VPATH:=${LIBSMKL_DIR} ${LIBMAIN_DIR} src/bootstrap
+VPATH:=${LIBSMKL_DIR} ${LIBMAIN_DIR} src/bootstrap mockups mockups/src
 
 libs : dircheck make_vars
 
@@ -76,4 +76,10 @@ clean:
 	rm -rf lib/*
 	rm -rf bin/*
 
-# -rpath='lib' to add dir to search path OPTIONS, -L to add dir to search path ._. ??
+SVG_FILES:=$(wildcard mockups/src/*.svg)
+PNG_FILES:=$(foreach target,${SVG_FILES},$(patsubst mockups/src/%.svg,mockups/%.png,${target}))
+
+mockups : ${PNG_FILES}
+
+mockups/%.png : mockups/src/%.svg
+	inkscape $< -o $@
