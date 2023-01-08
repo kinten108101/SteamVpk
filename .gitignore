@@ -8,4 +8,6 @@
 /profiles/
 legacy
 /make_vars
+/NOTE.md
 *.vpk
+*.sublime-workspace
