@@ -7,5 +7,5 @@
 /dls/
 /profiles/
 legacy
-
+/make_vars
 *.vpk

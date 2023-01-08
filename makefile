@@ -61,8 +61,8 @@ adwaita :
 execs : execs_load_config $(patsubst %.c,bin/%,${EXEC_FILES})
 
 execs_load_config :
-	$(eval EXEC_CFLAGS+=$(shell cat script/config.dat | sed -n '3p' | sed 's/EXEC_CFLAGS=//'))
-	$(eval EXEC_LIBS+=$(shell cat script/config.dat | sed -n '4p' | sed 's/EXEC_LIBS=//'))
+	$(eval EXEC_CFLAGS+=$(shell cat make_vars | sed -n '3p' | sed 's/EXEC_CFLAGS=//'))
+	$(eval EXEC_LIBS+=$(shell cat make_vars | sed -n '4p' | sed 's/EXEC_LIBS=//'))
 ifeq ($(EXCEPTION_GUI_DEV),y)
 	$(eval EXEC_CFLAGS+=$(shell pkg-config --cflags libadwaita-1))
 endif
