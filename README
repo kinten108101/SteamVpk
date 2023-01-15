@@ -1,0 +1,18 @@
+Duffle-bag
+===
+
+Duffle-bag (codename Myso) is an add-on creation and management application, currently only supports L4D2's VPK files. It is built in C with the GTK widget toolkit and libadwaita.
+
+Duffle-bag is in active development and there is no stable build. In the future, there will be Flatpak and AppImage support.
+
+Building:
+1. Prepare dependencies as listed below this section;
+2. Make shared libraries: `make libs`;
+3. Make executables: `make execs`;
+4. Executables are found in `bin/`.
+
+Dependencies:
+- bash
+- getopts
+- vpk (from pip)
+
