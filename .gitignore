@@ -8,6 +8,7 @@
 /profiles/
 legacy
 /make_vars
-/NOTE.md
+/NOTE
 *.vpk
 *.sublime-workspace
+*.sketch
